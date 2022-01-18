@@ -35,20 +35,16 @@ while True:
         bad_one = choice(team_bad)
         hero_one = choice(team_hero)
 
-        # 額外的招式列表
-
         # bad 採取動作
         hero_one.hp -= hero_one.damage(bad_one.power) # hero扣掉自身防禦值後的傷害值
+        # bad 使用額外招式
         move_choice = choice([bad_one.dirty_move, bad_one.zone_out])
         move_choice()
-        # if move_choice == bad_one.dirty_move:
-        #     move_choice()
-        # else:
-        #     move_choice()
 
 
         # hero 採取動作
         bad_one.hp -= bad_one.damage(hero_one.power)
+        # hero 使用額外招式
         move_choice = choice([hero_one.refill_hp, hero_one.zone_out])
         if move_choice == hero_one.refill_hp:
             move_choice(hero_one.hp)
@@ -63,13 +59,3 @@ while True:
             team_hero.remove(hero_one)
         print(f'血量值: {hero_one.name},{hero_one.hp}  v.s.  {bad_one.name},{bad_one.hp}')
         print('壞人數:', len(team_bad), '英雄數:', len(team_hero))
-
-
-
-
-
-
-
-
-
-

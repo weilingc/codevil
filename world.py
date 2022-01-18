@@ -13,14 +13,13 @@ class Npc:
 
 
 class Badass(Npc):
-    # 爛招
+    # 爛招, todo:待編寫
     def dirty_move(self):
         print(f"{self.name}: I'm using dirty move")
 
     # 發呆
     def zone_out(self):
         print(f'{self.name}: what? I just zone out,...')
-
 
 
 class Hero(Npc):
