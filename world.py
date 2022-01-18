@@ -1,29 +1,34 @@
 # 練習物件導向
-#
 
-
-class Badass:
-    def __init__(self, name, blood, power):
+class Npc:
+    def __init__(self, name, hp, power, defense):
         self.name = name
-        self.blood = blood
-        self.power = power
-
-    def dirty_move(self):
-        print("I'm bad bad")
-
-
-
-class Hero:
-    def __init__(self, name, blood, power, defense):
-        self.name = name
-        self.blood = blood
+        self.hp = hp
         self.power = power
         self.defense = defense
 
-    # 設定Hero的功能，發出狀聲詞
-    def kick_ass(self):
-        print('kick~!')
+    def damage(self, power):
+        damage = power - self.defense
+        return damage
 
-    # 防禦
-    def hold_still(self):
-        print('nothing hurt!')
+
+class Badass(Npc):
+    # 爛招
+    def dirty_move(self):
+        print(f"{self.name}: I'm using dirty move")
+
+    # 發呆
+    def zone_out(self):
+        print(f'{self.name}: what? I just zone out,...')
+
+
+
+class Hero(Npc):
+    # 補血
+    def refill_hp(self, cur_hp):
+        self.hp = cur_hp + 10
+        print(f"{self.name}'s hp is refilled of 10 ==> {self.hp}")
+
+    # 發呆
+    def zone_out(self):
+        print(f'{self.name}: what? I just zone out,...')
