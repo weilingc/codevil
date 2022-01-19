@@ -1,5 +1,7 @@
 from world import Badass, Hero
 from random import choice
+from time import sleep
+import datetime
 
 # 在這個平台中，創建數個Badass類別的物件
 corp_cop = Badass('Corp_cop', 50, 35, 1)
@@ -16,14 +18,16 @@ team_hero = [darevil, elek]
 team_bad = [corp_cop, bad_cop, kingpin]
 
 fight_round = 1
+print('現在時間: ',datetime.datetime.now())
 while True:
-
-    #若隊伍中完全沒人, 則判定另一方獲勝
+    # 若隊伍中完全沒人, 則判定另一方獲勝
     if len(team_hero) == 0:
         print('Badass won!')
+        sleep(10)
         break
     elif len(team_bad) == 0:
         print('Heroes won!')
+        sleep(10)
         break
 
     # 設定打鬥的場景
