@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
+import os
 
 win = tk.Tk()
 win.geometry("500x500")
@@ -21,10 +22,12 @@ text = tk.Text(win, width=50, height=5, bg='pink', wrap=WORD)
 text.insert(END, sentences)
 text.pack()
 
+
 def show_msg():
     # messagebox.showinfo('顯示類對話方塊', '顯示內容在此')  # icon=藍色i
     # messagebox.showerror('顯示類對話方塊', '顯示內容在此')  # icon=叉叉
     messagebox.showwarning('顯示類對話方塊', '顯示內容在此')  # icon=三角驚嘆號
+    # messagebox.showwarning('顯示類對話方塊', get_result())  # icon=三角驚嘆號
 def inter_msg():
     # messagebox.askretrycancel('詢問互動類對話方塊', '詢問對話方塊內容在此') # icon=三角驚嘆號
     # messagebox.askokcancel('詢問互動類對話方塊', '詢問對話方塊內容在此')  # icon=藍色問號
@@ -40,7 +43,7 @@ b2 = Button(win, width=30, text='詢問互動類對話方塊', command=inter_msg
 
 def check():
     print('點選內容有: ', var1.get(), var2.get(), var3.get())
-    import main
+    # import main
 
 
 lb1 = Label(win, text='選項: ')
@@ -59,4 +62,54 @@ chk3.pack()
 btnShow = Button(win, text='列出選擇結果', command=check)
 btnShow.pack()
 
-win.mainloop()
+
+def select():
+    print(f"您選中了: {var.get()}")
+
+
+Label(win, text="請問您要選擇的人物為: ", justify=LEFT, padx=20).pack()
+role = [('Darevil', 1), ('Elek', 2), ('Bad_cop', 3), ('Corp_cop', 4), ('Kingpin', 5)]
+var = IntVar()
+var.set(0)
+for item, val in role:
+    Radiobutton(win, text=item, value=val, variable=var, padx=20, command=select).pack(anchor=W)
+
+
+# Menu功能-位於視窗標題下方
+# 建立一功能列表menubar
+menubar = tk.Menu(win)
+
+# 將功能列表menubar指向給win的menu~ 代表menubar這個物件~就是用在win這個視窗了
+win.config(menu=menubar)
+
+# 建立主功能表
+file_menu = tk.Menu(menubar, tearoff=0)
+edit_menu = tk.Menu(menubar, tearoff=0)
+run_menu = tk.Menu(menubar, tearoff=0)
+window_menu = tk.Menu(menubar, tearoff=0)
+online_menu = tk.Menu(menubar, tearoff=0)
+
+# manubar物件&標籤列表
+menu_obj = [file_menu, edit_menu, run_menu, window_menu, online_menu]
+menu_label = ['檔案', '編輯', '執行', '視窗', '線上說明']
+
+menu_list = zip(menu_obj, menu_label)
+
+for menu in menu_list:
+    menubar.add_cascade(label=menu[1], menu=menu[0])
+
+# manubar物件加入子列表
+file_menu.add_command(label="開啟舊檔")
+edit_menu.add_command(label="復原")
+run_menu.add_command(label="編譯及執行本程式")
+
+
+# ---把main.py print出來的東西放到GUI文字框呈現?-----
+def get_result():
+    results = os.popen('python main.py')  # 執行main.py後CMD內容物件
+    result = results.read()  # read()完之後，轉為str物件
+    return result
+
+
+mainloop()
+
